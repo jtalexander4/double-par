@@ -2,7 +2,7 @@ from flask import flash, redirect, render_template, url_for
 from flask_login import login_required, login_user, logout_user
 
 from . import auth
-from forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm
 from .. import db
 from ..models import User
 
@@ -39,11 +39,13 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user is not None and user.verify_password(
-            form.password.data):
+        if user is not None and user.verify_password(form.password.data):
             login_user(user)
 
-            return redirect(url_for('home.dashboard))
+            if user.is_admin:
+                return redirect(url_for('home.admin_dashboard'))
+            else:
+                return redirect(url_for('home.dashboard'))
 
         else:
             flash('Invalid email or passowrd.')
@@ -52,12 +54,13 @@ def login():
 
 
 @auth.route('/logout', methods=['GET', 'POST'])
+@login_required
 def logout():
-    """ 
+    """
     Handle requests to the /logout route
     Log a user out through the logout link
     """
     logout_user()
-    flash('You have successfuly been looged out.')
+    flash('You have successfuly been logged out.')
 
-    redirect(url_for('auth.login'))
+    return redirect(url_for('auth.login'))

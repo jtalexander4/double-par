@@ -4,21 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-pylint = "*"
 "flake8" = "*"
 
 [packages]
-pylint = "*"
-flask-migrate = "*"
-flask-login = "*"
-<<<<<<< HEAD
-"flake8" = "*"
-=======
 flask = "*"
 flask-sqlalchemy = "*"
+flask-login = "*"
+flask-migrate = "*"
 flask-wtf = "*"
 flask-bootstrap = "*"
->>>>>>> dde60f799839301532c8138b15659b90d7427555
+"psycopg2" = "*"
 
 [requires]
 python_version = "3.6"
