@@ -1,0 +1,14 @@
+/instance
+
+.DS_Store
+/double_par/.DS_Store
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+/.vscode
+
+.run.py.swp
+
+/migrations
